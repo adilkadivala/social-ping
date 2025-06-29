@@ -1,55 +1,61 @@
 'use client';
 
-import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from 'recharts';
+import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart"
 
-const data = [
-  { name: 'Jan', mentions: 65, sentiment: 78 },
-  { name: 'Feb', mentions: 89, sentiment: 82 },
-  { name: 'Mar', mentions: 123, sentiment: 75 },
-  { name: 'Apr', mentions: 156, sentiment: 88 },
-  { name: 'May', mentions: 178, sentiment: 85 },
-  { name: 'Jun', mentions: 203, sentiment: 92 },
-  { name: 'Jul', mentions: 234, sentiment: 89 },
-];
+const chartData = [
+  { month: "January", mentions: 186 },
+  { month: "February", mentions: 305 },
+  { month: "March", mentions: 237 },
+  { month: "April", mentions: 273 },
+  { month: "May", mentions: 209 },
+  { month: "June", mentions: 214 },
+  { month: "July", mentions: 234 },
+]
+
+const chartConfig = {
+  mentions: {
+    label: "Mentions",
+    color: "hsl(var(--primary))",
+  },
+}
 
 export function OverviewChart() {
   return (
-    <ResponsiveContainer width="100%" height={350}>
-      <AreaChart data={data}>
-        <defs>
-          <linearGradient id="colorMentions" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
-            <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
-          </linearGradient>
-        </defs>
-        <XAxis 
-          dataKey="name" 
-          axisLine={false}
+    <ChartContainer config={chartConfig}>
+      <AreaChart
+        accessibilityLayer
+        data={chartData}
+        margin={{
+          left: 12,
+          right: 12,
+        }}
+      >
+        <CartesianGrid vertical={false} />
+        <XAxis
+          dataKey="month"
           tickLine={false}
-          tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
-        />
-        <YAxis 
           axisLine={false}
-          tickLine={false}
-          tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
+          tickMargin={8}
+          tickFormatter={(value) => value.slice(0, 3)}
         />
-        <Tooltip 
-          contentStyle={{
-            backgroundColor: 'hsl(var(--card))',
-            border: '1px solid hsl(var(--border))',
-            borderRadius: '8px',
-            boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
-          }}
+        <ChartTooltip
+          cursor={false}
+          content={<ChartTooltipContent indicator="line" />}
         />
         <Area
-          type="monotone"
           dataKey="mentions"
-          stroke="hsl(var(--primary))"
-          fillOpacity={1}
-          fill="url(#colorMentions)"
-          strokeWidth={2}
+          type="natural"
+          fill="var(--color-mentions)"
+          fillOpacity={0.4}
+          stroke="var(--color-mentions)"
+          stackId="a"
         />
       </AreaChart>
-    </ResponsiveContainer>
-  );
+    </ChartContainer>
+  )
 }

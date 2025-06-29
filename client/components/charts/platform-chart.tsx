@@ -1,40 +1,44 @@
 'use client';
 
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart"
 
-const data = [
-  { name: 'Twitter', mentions: 145, engagement: 89 },
-  { name: 'Reddit', mentions: 98, engagement: 67 },
-  { name: 'LinkedIn', mentions: 56, engagement: 78 },
-  { name: 'YouTube', mentions: 34, engagement: 45 },
-];
+const chartData = [
+  { platform: "Twitter", mentions: 275 },
+  { platform: "Reddit", mentions: 200 },
+  { platform: "LinkedIn", mentions: 187 },
+  { platform: "YouTube", mentions: 173 },
+]
+
+const chartConfig = {
+  mentions: {
+    label: "Mentions",
+    color: "hsl(var(--primary))",
+  },
+}
 
 export function PlatformChart() {
   return (
-    <ResponsiveContainer width="100%" height={300}>
-      <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-        <XAxis 
-          dataKey="name" 
-          tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
-          axisLine={false}
+    <ChartContainer config={chartConfig}>
+      <BarChart accessibilityLayer data={chartData}>
+        <CartesianGrid vertical={false} />
+        <XAxis
+          dataKey="platform"
           tickLine={false}
-        />
-        <YAxis 
-          tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
+          tickMargin={10}
           axisLine={false}
-          tickLine={false}
+          tickFormatter={(value) => value.slice(0, 3)}
         />
-        <Tooltip 
-          contentStyle={{
-            backgroundColor: 'hsl(var(--card))',
-            border: '1px solid hsl(var(--border))',
-            borderRadius: '8px',
-            boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
-          }}
+        <ChartTooltip
+          cursor={false}
+          content={<ChartTooltipContent hideLabel />}
         />
-        <Bar dataKey="mentions" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+        <Bar dataKey="mentions" fill="var(--color-mentions)" radius={8} />
       </BarChart>
-    </ResponsiveContainer>
-  );
+    </ChartContainer>
+  )
 }
