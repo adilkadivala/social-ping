@@ -1,22 +1,30 @@
-'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { OverviewChart } from '@/components/charts/overview-chart';
-import { SentimentChart } from '@/components/charts/sentiment-chart';
-import { PlatformChart } from '@/components/charts/platform-chart';
-import { 
-  TrendingUp, 
-  TrendingDown, 
-  MessageSquare, 
-  Bell, 
-  Users, 
+"use client";
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { OverviewChart } from "@/components/charts/overview-chart";
+import { SentimentChart } from "@/components/charts/sentiment-chart";
+import { PlatformChart } from "@/components/charts/platform-chart";
+import {
+  TrendingUp,
+  TrendingDown,
+  MessageSquare,
+  Bell,
+  Users,
   BarChart3,
   Twitter,
   ExternalLink,
-  Eye
-} from 'lucide-react';
+  Eye,
+} from "lucide-react";
+
 
 export default function DashboardPage() {
   return (
@@ -29,16 +37,20 @@ export default function DashboardPage() {
             Welcome back! Here's what's happening with your mentions.
           </p>
         </div>
-        <Button>
-          View All Mentions
-        </Button>
+
+        <Button>View All Mentions</Button>
+
       </div>
 
       {/* Stats Cards */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Mentions</CardTitle>
+
+            <CardTitle className="text-sm font-medium">
+              Total Mentions
+            </CardTitle>
+
             <MessageSquare className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -47,15 +59,21 @@ export default function DashboardPage() {
               <span className="inline-flex items-center text-green-600">
                 <TrendingUp className="h-3 w-3 mr-1" />
                 +12.5%
-              </span>
-              {' '}from last month
+
+              </span>{" "}
+              from last month
+
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Unread Mentions</CardTitle>
+
+            <CardTitle className="text-sm font-medium">
+              Unread Mentions
+            </CardTitle>
+
             <Bell className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -64,15 +82,20 @@ export default function DashboardPage() {
               <span className="inline-flex items-center text-red-600">
                 <TrendingDown className="h-3 w-3 mr-1" />
                 -2.1%
-              </span>
-              {' '}from yesterday
+
+              </span>{" "}
+              from yesterday
+
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Avg. Sentiment</CardTitle>
+
+            <CardTitle className="text-sm font-medium">
+              Avg. Sentiment
+            </CardTitle>
             <BarChart3 className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -81,15 +104,17 @@ export default function DashboardPage() {
               <span className="inline-flex items-center text-green-600">
                 <TrendingUp className="h-3 w-3 mr-1" />
                 +5.2%
-              </span>
-              {' '}positive sentiment
+              </span>{" "}
+              positive sentiment
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Keywords</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Active Keywords
+            </CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -120,9 +145,7 @@ export default function DashboardPage() {
         <Card className="col-span-3">
           <CardHeader>
             <CardTitle>Sentiment Analysis</CardTitle>
-            <CardDescription>
-              Breakdown of mention sentiment
-            </CardDescription>
+            <CardDescription>Breakdown of mention sentiment</CardDescription>
           </CardHeader>
           <CardContent>
             <SentimentChart />
@@ -136,14 +159,13 @@ export default function DashboardPage() {
         <Card>
           <CardHeader>
             <CardTitle>Platform Performance</CardTitle>
-            <CardDescription>
-              Mentions by social media platform
-            </CardDescription>
+            <CardDescription>Mentions by social media platform</CardDescription>
           </CardHeader>
           <CardContent>
             <PlatformChart />
           </CardContent>
         </Card>
+
 
         {/* Recent Mentions */}
         <Card>
@@ -157,45 +179,69 @@ export default function DashboardPage() {
             {[
               {
                 id: 1,
-                platform: 'twitter',
-                text: 'Just discovered SocialPing and it\'s amazing! Perfect for tracking brand mentions.',
-                author: '@johndoe',
-                time: '2 hours ago',
-                sentiment: 'positive',
-                isRead: false
+
+                platform: "twitter",
+                text: "Just discovered SocialPing and it's amazing! Perfect for tracking brand mentions.",
+                author: "@johndoe",
+                time: "2 hours ago",
+                sentiment: "positive",
+                isRead: false,
               },
               {
                 id: 2,
-                platform: 'reddit',
-                text: 'Has anyone tried SocialPing for social media monitoring? Looking for reviews.',
-                author: 'u/techuser',
-                time: '4 hours ago',
-                sentiment: 'neutral',
-                isRead: true
+                platform: "reddit",
+                text: "Has anyone tried SocialPing for social media monitoring? Looking for reviews.",
+                author: "u/techuser",
+                time: "4 hours ago",
+                sentiment: "neutral",
+                isRead: true,
               },
               {
                 id: 3,
-                platform: 'twitter',
-                text: 'SocialPing helped us catch a viral mention before it exploded. Highly recommend!',
-                author: '@startupfounder',
-                time: '6 hours ago',
-                sentiment: 'positive',
-                isRead: false
-              }
+                platform: "twitter",
+                text: "SocialPing helped us catch a viral mention before it exploded. Highly recommend!",
+                author: "@startupfounder",
+                time: "6 hours ago",
+                sentiment: "positive",
+                isRead: false,
+              },
             ].map((mention) => (
-              <div key={mention.id} className={`p-4 rounded-lg border ${!mention.isRead ? 'bg-blue-50/50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-800' : 'bg-muted/30'}`}>
+              <div
+                key={mention.id}
+                className={`p-4 rounded-lg border ${
+                  !mention.isRead
+                    ? "bg-blue-50/50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-800"
+                    : "bg-muted/30"
+                }`}
+              >
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex items-center space-x-2">
-                    <div className={`p-1 rounded-full ${mention.platform === 'twitter' ? 'bg-blue-500' : 'bg-orange-500'}`}>
-                      {mention.platform === 'twitter' ? (
+                    <div
+                      className={`p-1 rounded-full ${
+                        mention.platform === "twitter"
+                          ? "bg-blue-500"
+                          : "bg-orange-500"
+                      }`}
+                    >
+                      {mention.platform === "twitter" ? (
+
                         <Twitter className="w-3 h-3 text-white" />
                       ) : (
                         <MessageSquare className="w-3 h-3 text-white" />
                       )}
                     </div>
-                    <span className="text-sm font-medium">{mention.author}</span>
-                    <Badge 
-                      variant={mention.sentiment === 'positive' ? 'default' : mention.sentiment === 'negative' ? 'destructive' : 'secondary'}
+span className="text-sm font-medium">
+                      {mention.author}
+                    </span>
+                    <Badge
+                      variant={
+                        mention.sentiment === "positive"
+                          ? "default"
+                          : mention.sentiment === "negative"
+                          ? "destructive"
+                          : "secondary"
+                      }
+
                       className="text-xs"
                     >
                       {mention.sentiment}
@@ -218,9 +264,9 @@ export default function DashboardPage() {
                 <p className="text-sm text-muted-foreground mb-2">
                   {mention.text}
                 </p>
-                <p className="text-xs text-muted-foreground">
-                  {mention.time}
-                </p>
+
+                <p className="text-xs text-muted-foreground">{mention.time}</p>
+
               </div>
             ))}
           </CardContent>

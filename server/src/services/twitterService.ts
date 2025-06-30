@@ -1,4 +1,5 @@
-import axios from 'axios';
+
+import axios from "axios";
 
 export interface TwitterMention {
   id: string;
@@ -22,35 +23,42 @@ export class TwitterService {
   private bearerToken: string;
 
   constructor() {
-    this.bearerToken = process.env.TWITTER_BEARER_TOKEN || '';
+    this.bearerToken = process.env.TWITTER_BEARER_TOKEN || "";
   }
 
-  async searchTweets(keyword: string, maxResults: number = 10): Promise<{
+  async searchTweets(
+    keyword: string,
+    maxResults: number = 10
+  ): Promise<{
     tweets: TwitterMention[];
     users: TwitterUser[];
   }> {
     try {
-      const response = await axios.get('https://api.twitter.com/2/tweets/search/recent', {
-        headers: {
-          'Authorization': `Bearer ${this.bearerToken}`,
-          'Content-Type': 'application/json'
-        },
-        params: {
-          query: keyword,
-          max_results: maxResults,
-          'tweet.fields': 'created_at,author_id,public_metrics',
-          'user.fields': 'username,name',
-          expansions: 'author_id'
+      const response = await axios.get(
+        "https://api.twitter.com/2/tweets/search/recent",
+        {
+          headers: {
+            Authorization: `Bearer ${this.bearerToken}`,
+            "Content-Type": "application/json",
+          },
+          params: {
+            query: keyword,
+            max_results: maxResults,
+            "tweet.fields": "created_at,author_id,public_metrics",
+            "user.fields": "username,name",
+            expansions: "author_id",
+          },
         }
-      });
+      );
 
       return {
         tweets: response.data.data || [],
-        users: response.data.includes?.users || []
+        users: response.data.includes?.users || [],
       };
     } catch (error) {
-      console.error('Twitter API Error:', error);
-      throw new Error('Failed to fetch tweets');
+      console.error("Twitter API Error:", error);
+      throw new Error("Failed to fetch tweets");
     }
   }
 }
+

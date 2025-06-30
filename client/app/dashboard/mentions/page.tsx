@@ -1,12 +1,25 @@
-'use client';
 
-import { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { apiClient } from '@/lib/api';
-import { ExternalLink, Twitter, MessageSquare, Eye, Linkedin, Youtube } from 'lucide-react';
-import type { Mention } from '@/lib/types';
+"use client";
+
+import { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { apiClient } from "@/lib/api";
+import { ExternalLink, Twitter, MessageSquare, Eye } from "lucide-react";
+
+interface Mention {
+  _id: string;
+  platform: "twitter" | "reddit";
+  text: string;
+  url: string;
+  author: string;
+  publishedAt: string;
+  isRead: boolean;
+  keywordId: {
+    keyword: string;
+  };
+}
 
 export default function MentionsPage() {
   const [mentions, setMentions] = useState<Mention[]>([]);
@@ -25,7 +38,7 @@ export default function MentionsPage() {
       setMentions(data.mentions);
       setPagination(data.pagination);
     } catch (error) {
-      console.error('Error fetching mentions:', error);
+      console.error("Error fetching mentions:", error);
     } finally {
       setLoading(false);
     }
@@ -34,36 +47,32 @@ export default function MentionsPage() {
   const markAsRead = async (mentionId: string) => {
     try {
       await apiClient.markMentionAsRead(mentionId);
-      setMentions(mentions.map(mention => 
-        mention.id === mentionId 
-          ? { ...mention, is_read: true }
-          : mention
-      ));
+      setMentions(
+        mentions.map((mention) =>
+          mention._id === mentionId ? { ...mention, isRead: true } : mention
+        )
+      );
     } catch (error) {
-      console.error('Error marking mention as read:', error);
+      console.error("Error marking mention as read:", error);
     }
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
 
   const getPlatformIcon = (platform: string) => {
     switch (platform) {
-      case 'twitter':
+      case "twitter":
         return <Twitter className="w-4 h-4" />;
-      case 'reddit':
+      case "reddit":
         return <MessageSquare className="w-4 h-4" />;
-      case 'linkedin':
-        return <Linkedin className="w-4 h-4" />;
-      case 'youtube':
-        return <Youtube className="w-4 h-4" />;
       default:
         return null;
     }
@@ -71,16 +80,12 @@ export default function MentionsPage() {
 
   const getPlatformColor = (platform: string) => {
     switch (platform) {
-      case 'twitter':
-        return 'bg-blue-500';
-      case 'reddit':
-        return 'bg-orange-500';
-      case 'linkedin':
-        return 'bg-blue-600';
-      case 'youtube':
-        return 'bg-red-500';
+      case "twitter":
+        return "bg-blue-500";
+      case "reddit":
+        return "bg-orange-500";
       default:
-        return 'bg-gray-500';
+        return "bg-gray-500";
     }
   };
 
@@ -125,49 +130,62 @@ export default function MentionsPage() {
         <>
           <div className="grid gap-4">
             {mentions.map((mention) => (
-              <Card key={mention.id} className={`transition-all hover:shadow-md ${!mention.is_read ? 'border-blue-200 bg-blue-50/30' : ''}`}>
+              <Card
+                key={mention._id}
+                className={`transition-all hover:shadow-md ${
+                  !mention.isRead ? "border-blue-200 bg-blue-50/30" : ""
+                }`}
+              >
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex items-center space-x-2">
-                      <div className={`p-1 rounded-full text-white ${getPlatformColor(mention.platform)}`}>
+                      <div
+                        className={`p-1 rounded-full text-white ${getPlatformColor(
+                          mention.platform
+                        )}`}
+                      >
                         {getPlatformIcon(mention.platform)}
                       </div>
                       <Badge variant="secondary" className="capitalize">
-                        {mention.keyword?.keyword}
+                        {mention.keywordId.keyword}
                       </Badge>
-                      {!mention.is_read && (
+                      {!mention.isRead && (
                         <Badge variant="default" className="bg-blue-500">
                           New
                         </Badge>
                       )}
                     </div>
                     <div className="flex items-center space-x-2">
-                      {!mention.is_read && (
+                      {!mention.isRead && (
                         <Button
                           size="sm"
                           variant="ghost"
-                          onClick={() => markAsRead(mention.id)}
+                          onClick={() => markAsRead(mention._id)}
                         >
                           <Eye className="w-4 h-4 mr-1" />
                           Mark as read
                         </Button>
                       )}
                       <Button size="sm" variant="outline" asChild>
-                        <a href={mention.url} target="_blank" rel="noopener noreferrer">
+                        <a
+                          href={mention.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <ExternalLink className="w-4 h-4 mr-1" />
                           View
                         </a>
                       </Button>
                     </div>
                   </div>
-                  
+
                   <p className="text-gray-800 mb-3 leading-relaxed">
                     {mention.text}
                   </p>
-                  
+
                   <div className="flex items-center justify-between text-sm text-gray-500">
                     <span>By @{mention.author}</span>
-                    <span>{formatDate(mention.published_at)}</span>
+                    <span>{formatDate(mention.publishedAt)}</span>
                   </div>
                 </CardContent>
               </Card>
@@ -200,3 +218,4 @@ export default function MentionsPage() {
     </div>
   );
 }
+

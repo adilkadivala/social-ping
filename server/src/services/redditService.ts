@@ -1,4 +1,5 @@
-import axios from 'axios';
+
+import axios from "axios";
 
 export interface RedditPost {
   id: string;
@@ -13,18 +14,21 @@ export interface RedditPost {
 }
 
 export class RedditService {
-  async searchPosts(keyword: string, limit: number = 10): Promise<RedditPost[]> {
+  async searchPosts(
+    keyword: string,
+    limit: number = 10
+  ): Promise<RedditPost[]> {
     try {
-      const response = await axios.get('https://www.reddit.com/search.json', {
+      const response = await axios.get("https://www.reddit.com/search.json", {
         params: {
           q: keyword,
           limit: limit,
-          sort: 'new',
-          t: 'day' // Last 24 hours
+          sort: "new",
+          t: "day", // Last 24 hours
         },
         headers: {
-          'User-Agent': 'SocialPing/1.0'
-        }
+          "User-Agent": "SocialPing/1.0",
+        },
       });
 
       return response.data.data.children.map((child: any) => ({
@@ -36,11 +40,11 @@ export class RedditService {
         permalink: `https://reddit.com${child.data.permalink}`,
         subreddit: child.data.subreddit,
         score: child.data.score,
-        num_comments: child.data.num_comments
+        num_comments: child.data.num_comments,
       }));
     } catch (error) {
-      console.error('Reddit API Error:', error);
-      throw new Error('Failed to fetch Reddit posts');
+      console.error("Reddit API Error:", error);
+      throw new Error("Failed to fetch Reddit posts");
     }
   }
 }
