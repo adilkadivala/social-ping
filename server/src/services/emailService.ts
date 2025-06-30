@@ -1,6 +1,6 @@
 
 import { Resend } from "resend";
-import type { Mention } from "../config/databse";
+import type { Mention } from "../config/supabase";
 
 export class EmailService {
   private resend: Resend;

@@ -2,8 +2,8 @@
 import { TwitterService } from "./twitterService";
 import { RedditService } from "./redditService";
 import { EmailService } from "./emailService";
-import { supabase } from "../config/databse";
-import type { Keyword, User, Mention } from "../config/databse";
+import { supabase } from "../config/supabase";
+import type { Keyword, User, Mention } from "../config/supabase";
 
 export class MonitoringService {
   private twitterService: TwitterService;

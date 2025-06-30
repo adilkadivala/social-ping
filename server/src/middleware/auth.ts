@@ -1,8 +1,8 @@
 
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { supabase } from "../config/databse";
-import type { User } from "../config/databse";
+import { supabase } from "../config/supabase";
+import type { User } from "../config/supabase";
 
 export interface AuthRequest extends Request {
   user?: User;

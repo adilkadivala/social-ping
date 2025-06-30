@@ -2,7 +2,7 @@
 import express, { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { body, validationResult } from "express-validator";
-import { supabase } from "../config/databse";
+import { supabase } from "../config/supabase";
 import { authenticateToken, AuthRequest } from "../middleware/auth";
 
 const router = express.Router();
