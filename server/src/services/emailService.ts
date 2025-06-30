@@ -1,17 +1,18 @@
-import { Resend } from 'resend';
+import { Resend } from 'resend'
+import type { Mention } from '../config/supabase'
 
 export class EmailService {
-  private resend: Resend;
+  private resend: Resend
 
   constructor() {
-    this.resend = new Resend(process.env.RESEND_API_KEY);
+    this.resend = new Resend(process.env.RESEND_API_KEY)
   }
 
-  async sendMentionAlert(email: string, keyword: string, mentions: any[]): Promise<void> {
+  async sendMentionAlert(email: string, keyword: string, mentions: Mention[]): Promise<void> {
     try {
       const mentionsList = mentions.map(mention => 
         `• ${mention.platform.toUpperCase()}: "${mention.text.substring(0, 100)}..." - ${mention.url}`
-      ).join('\n');
+      ).join('\n')
 
       await this.resend.emails.send({
         from: 'SocialPing <alerts@socialping.com>',
@@ -29,11 +30,11 @@ Visit your dashboard to see more details: https://socialping.com/dashboard
 Best regards,
 The SocialPing Team
         `
-      });
+      })
 
-      console.log(`📧 Email alert sent to ${email} for keyword "${keyword}"`);
+      console.log(`📧 Email alert sent to ${email} for keyword "${keyword}"`)
     } catch (error) {
-      console.error('Email sending error:', error);
+      console.error('Email sending error:', error)
     }
   }
 }
