@@ -48,6 +48,9 @@ export default function DashboardLayout({
   const pathname = usePathname();
   const breadcrumbs = getBreadcrumbs(pathname);
 
+  const pathname = usePathname();
+  const breadcrumbs = getBreadcrumbs(pathname);
+
   return (
     <SidebarProvider>
       <AppSidebar />

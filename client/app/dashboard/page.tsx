@@ -1,4 +1,3 @@
-
 "use client";
 
 import {
@@ -25,7 +24,6 @@ import {
   Eye,
 } from "lucide-react";
 
-
 export default function DashboardPage() {
   return (
     <div className="space-y-6">
@@ -37,20 +35,16 @@ export default function DashboardPage() {
             Welcome back! Here's what's happening with your mentions.
           </p>
         </div>
-
         <Button>View All Mentions</Button>
-
       </div>
 
       {/* Stats Cards */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-
             <CardTitle className="text-sm font-medium">
               Total Mentions
             </CardTitle>
-
             <MessageSquare className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -59,21 +53,17 @@ export default function DashboardPage() {
               <span className="inline-flex items-center text-green-600">
                 <TrendingUp className="h-3 w-3 mr-1" />
                 +12.5%
-
               </span>{" "}
               from last month
-
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-
             <CardTitle className="text-sm font-medium">
               Unread Mentions
             </CardTitle>
-
             <Bell className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -82,17 +72,14 @@ export default function DashboardPage() {
               <span className="inline-flex items-center text-red-600">
                 <TrendingDown className="h-3 w-3 mr-1" />
                 -2.1%
-
               </span>{" "}
               from yesterday
-
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-
             <CardTitle className="text-sm font-medium">
               Avg. Sentiment
             </CardTitle>
@@ -166,7 +153,6 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
 
-
         {/* Recent Mentions */}
         <Card>
           <CardHeader>
@@ -179,7 +165,6 @@ export default function DashboardPage() {
             {[
               {
                 id: 1,
-
                 platform: "twitter",
                 text: "Just discovered SocialPing and it's amazing! Perfect for tracking brand mentions.",
                 author: "@johndoe",
@@ -224,13 +209,12 @@ export default function DashboardPage() {
                       }`}
                     >
                       {mention.platform === "twitter" ? (
-
                         <Twitter className="w-3 h-3 text-white" />
                       ) : (
                         <MessageSquare className="w-3 h-3 text-white" />
                       )}
                     </div>
-span className="text-sm font-medium">
+                    <span className="text-sm font-medium">
                       {mention.author}
                     </span>
                     <Badge
@@ -241,7 +225,6 @@ span className="text-sm font-medium">
                           ? "destructive"
                           : "secondary"
                       }
-
                       className="text-xs"
                     >
                       {mention.sentiment}
@@ -264,9 +247,7 @@ span className="text-sm font-medium">
                 <p className="text-sm text-muted-foreground mb-2">
                   {mention.text}
                 </p>
-
                 <p className="text-xs text-muted-foreground">{mention.time}</p>
-
               </div>
             ))}
           </CardContent>

@@ -12,9 +12,15 @@
     "db:pull": "npx prisma db pull",
     "db:seed": "ts-node ./src/prisma/seed.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "social-media",
+    "monitoring",
+    "saas",
+    "mentions",
+    "alerts"
+  ],
+  "author": "SocialPing Team",
+  "license": "MIT",
   "dependencies": {
     "@prisma/client": "^6.10.1",
     "@supabase/supabase-js": "^2.50.2",

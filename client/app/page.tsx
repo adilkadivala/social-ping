@@ -14,6 +14,7 @@ import {
   CheckCircle,
   Play,
   ExternalLink,
+  ExternalLink,
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -81,6 +82,8 @@ export default function HomePage() {
             Now monitoring 500K+ mentions daily
           </div>
           <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
+            Get alerted when someone mentions your
+            <span className="text-primary block">name, product, or brand</span>
             Get alerted when someone mentions your
             <span className="text-primary block">name, product, or brand</span>
           </h1>
@@ -350,6 +353,9 @@ export default function HomePage() {
                     <div className="text-xs text-muted-foreground">
                       Marketing Director
                     </div>
+                    <div className="text-xs text-muted-foreground">
+                      Marketing Director
+                    </div>
                   </div>
                 </div>
               </CardContent>
@@ -374,6 +380,9 @@ export default function HomePage() {
                   <div className="w-10 h-10 bg-gradient-to-r from-pink-400 to-red-400 rounded-full"></div>
                   <div>
                     <div className="font-medium text-sm">Alex Rivera</div>
+                    <div className="text-xs text-muted-foreground">
+                      Content Creator
+                    </div>
                     <div className="text-xs text-muted-foreground">
                       Content Creator
                     </div>
