@@ -5,20 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { apiClient } from '@/lib/api';
-import { ExternalLink, Twitter, MessageSquare, Eye } from 'lucide-react';
-
-interface Mention {
-  _id: string;
-  platform: 'twitter' | 'reddit';
-  text: string;
-  url: string;
-  author: string;
-  publishedAt: string;
-  isRead: boolean;
-  keywordId: {
-    keyword: string;
-  };
-}
+import { ExternalLink, Twitter, MessageSquare, Eye, Linkedin, Youtube } from 'lucide-react';
+import type { Mention } from '@/lib/supabase';
 
 export default function MentionsPage() {
   const [mentions, setMentions] = useState<Mention[]>([]);
@@ -47,8 +35,8 @@ export default function MentionsPage() {
     try {
       await apiClient.markMentionAsRead(mentionId);
       setMentions(mentions.map(mention => 
-        mention._id === mentionId 
-          ? { ...mention, isRead: true }
+        mention.id === mentionId 
+          ? { ...mention, is_read: true }
           : mention
       ));
     } catch (error) {
@@ -72,6 +60,10 @@ export default function MentionsPage() {
         return <Twitter className="w-4 h-4" />;
       case 'reddit':
         return <MessageSquare className="w-4 h-4" />;
+      case 'linkedin':
+        return <Linkedin className="w-4 h-4" />;
+      case 'youtube':
+        return <Youtube className="w-4 h-4" />;
       default:
         return null;
     }
@@ -83,6 +75,10 @@ export default function MentionsPage() {
         return 'bg-blue-500';
       case 'reddit':
         return 'bg-orange-500';
+      case 'linkedin':
+        return 'bg-blue-600';
+      case 'youtube':
+        return 'bg-red-500';
       default:
         return 'bg-gray-500';
     }
@@ -129,7 +125,7 @@ export default function MentionsPage() {
         <>
           <div className="grid gap-4">
             {mentions.map((mention) => (
-              <Card key={mention._id} className={`transition-all hover:shadow-md ${!mention.isRead ? 'border-blue-200 bg-blue-50/30' : ''}`}>
+              <Card key={mention.id} className={`transition-all hover:shadow-md ${!mention.is_read ? 'border-blue-200 bg-blue-50/30' : ''}`}>
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex items-center space-x-2">
@@ -137,20 +133,20 @@ export default function MentionsPage() {
                         {getPlatformIcon(mention.platform)}
                       </div>
                       <Badge variant="secondary" className="capitalize">
-                        {mention.keywordId.keyword}
+                        {mention.keyword?.keyword}
                       </Badge>
-                      {!mention.isRead && (
+                      {!mention.is_read && (
                         <Badge variant="default" className="bg-blue-500">
                           New
                         </Badge>
                       )}
                     </div>
                     <div className="flex items-center space-x-2">
-                      {!mention.isRead && (
+                      {!mention.is_read && (
                         <Button
                           size="sm"
                           variant="ghost"
-                          onClick={() => markAsRead(mention._id)}
+                          onClick={() => markAsRead(mention.id)}
                         >
                           <Eye className="w-4 h-4 mr-1" />
                           Mark as read
@@ -171,7 +167,7 @@ export default function MentionsPage() {
                   
                   <div className="flex items-center justify-between text-sm text-gray-500">
                     <span>By @{mention.author}</span>
-                    <span>{formatDate(mention.publishedAt)}</span>
+                    <span>{formatDate(mention.published_at)}</span>
                   </div>
                 </CardContent>
               </Card>

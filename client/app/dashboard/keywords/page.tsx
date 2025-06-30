@@ -7,13 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { apiClient } from '@/lib/api';
 import { Plus, Search, Trash2, ToggleLeft, ToggleRight } from 'lucide-react';
-
-interface Keyword {
-  _id: string;
-  keyword: string;
-  isActive: boolean;
-  createdAt: string;
-}
+import type { Keyword } from '@/lib/supabase';
 
 export default function KeywordsPage() {
   const [keywords, setKeywords] = useState<Keyword[]>([]);
@@ -59,7 +53,7 @@ export default function KeywordsPage() {
 
     try {
       await apiClient.deleteKeyword(id);
-      setKeywords(keywords.filter(k => k._id !== id));
+      setKeywords(keywords.filter(k => k.id !== id));
     } catch (error) {
       console.error('Error deleting keyword:', error);
     }
@@ -68,7 +62,7 @@ export default function KeywordsPage() {
   const toggleKeyword = async (id: string) => {
     try {
       const updatedKeyword = await apiClient.toggleKeyword(id);
-      setKeywords(keywords.map(k => k._id === id ? updatedKeyword : k));
+      setKeywords(keywords.map(k => k.id === id ? updatedKeyword : k));
     } catch (error) {
       console.error('Error toggling keyword:', error);
     }
@@ -143,18 +137,18 @@ export default function KeywordsPage() {
         ) : (
           <div className="grid gap-4">
             {keywords.map((keyword) => (
-              <Card key={keyword._id} className="transition-all hover:shadow-md">
+              <Card key={keyword.id} className="transition-all hover:shadow-md">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4">
                       <div>
                         <h3 className="font-semibold text-lg">{keyword.keyword}</h3>
                         <p className="text-sm text-muted-foreground">
-                          Added {new Date(keyword.createdAt).toLocaleDateString()}
+                          Added {new Date(keyword.created_at).toLocaleDateString()}
                         </p>
                       </div>
-                      <Badge variant={keyword.isActive ? 'default' : 'secondary'}>
-                        {keyword.isActive ? 'Active' : 'Inactive'}
+                      <Badge variant={keyword.is_active ? 'default' : 'secondary'}>
+                        {keyword.is_active ? 'Active' : 'Inactive'}
                       </Badge>
                     </div>
                     
@@ -162,9 +156,9 @@ export default function KeywordsPage() {
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => toggleKeyword(keyword._id)}
+                        onClick={() => toggleKeyword(keyword.id)}
                       >
-                        {keyword.isActive ? (
+                        {keyword.is_active ? (
                           <ToggleRight className="w-4 h-4 text-green-600" />
                         ) : (
                           <ToggleLeft className="w-4 h-4 text-muted-foreground" />
@@ -173,7 +167,7 @@ export default function KeywordsPage() {
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => deleteKeyword(keyword._id)}
+                        onClick={() => deleteKeyword(keyword.id)}
                         className="text-red-600 hover:text-red-700"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -204,7 +198,7 @@ export default function KeywordsPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {keywords.filter(k => k.isActive).length}
+              {keywords.filter(k => k.is_active).length}
             </div>
           </CardContent>
         </Card>
@@ -215,7 +209,7 @@ export default function KeywordsPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {keywords.filter(k => !k.isActive).length}
+              {keywords.filter(k => !k.is_active).length}
             </div>
           </CardContent>
         </Card>
