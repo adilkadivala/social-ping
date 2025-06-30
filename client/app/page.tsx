@@ -13,6 +13,7 @@ import {
   Globe,
   CheckCircle,
   Play,
+  ExternalLink,
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -664,8 +665,36 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="border-t mt-8 pt-8 text-center text-sm text-muted-foreground">
-            <p>&copy; 2024 SocialPing. All rights reserved.</p>
+          <div className="border-t mt-8 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-muted-foreground">
+              &copy; 2024 SocialPing. All rights reserved.
+            </p>
+            
+            {/* Built with Bolt.new Badge */}
+            <div className="flex items-center gap-2">
+              <a
+                href="https://bolt.new"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-medium hover:from-orange-600 hover:to-red-600 transition-all duration-200 shadow-sm hover:shadow-md"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="flex-shrink-0"
+                >
+                  <path
+                    d="M13 3L4 14h7l-1 8 9-11h-7l1-8z"
+                    fill="currentColor"
+                  />
+                </svg>
+                Built with Bolt.new
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
           </div>
         </div>
       </footer>
