@@ -1,3 +1,4 @@
+
 import { Resend } from "resend";
 import type { Mention } from "../config/databse";
 
@@ -45,3 +46,4 @@ The SocialPing Team
     }
   }
 }
+

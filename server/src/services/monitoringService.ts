@@ -1,3 +1,4 @@
+
 import { TwitterService } from "./twitterService";
 import { RedditService } from "./redditService";
 import { EmailService } from "./emailService";
@@ -193,3 +194,4 @@ export class MonitoringService {
     return "neutral";
   }
 }
+

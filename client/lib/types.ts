@@ -1,3 +1,4 @@
+
 // Shared types between client and server
 export interface User {
   id: string;

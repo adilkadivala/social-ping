@@ -1,3 +1,4 @@
+
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
 
 class ApiClient {
@@ -134,5 +135,6 @@ class ApiClient {
     return this.token;
   }
 }
+
 
 export const apiClient = new ApiClient();
