@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { apiClient } from '@/lib/api';
 import { ExternalLink, Twitter, MessageSquare, Eye, Linkedin, Youtube } from 'lucide-react';
-import type { Mention } from '@/lib/supabase';
+import type { Mention } from '@/lib/types';
 
 export default function MentionsPage() {
   const [mentions, setMentions] = useState<Mention[]>([]);

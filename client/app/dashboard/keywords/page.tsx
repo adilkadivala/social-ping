@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { apiClient } from '@/lib/api';
 import { Plus, Search, Trash2, ToggleLeft, ToggleRight } from 'lucide-react';
-import type { Keyword } from '@/lib/supabase';
+import type { Keyword } from '@/lib/types';
 
 export default function KeywordsPage() {
   const [keywords, setKeywords] = useState<Keyword[]>([]);

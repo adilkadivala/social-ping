@@ -2,8 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { apiClient } from '@/lib/api';
-import { supabase } from '@/lib/supabase';
-import type { User } from '@/lib/supabase';
+import type { User } from '@/lib/types';
 
 interface AuthContextType {
   user: User | null;
@@ -20,42 +19,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Get initial session
-    const getInitialSession = async () => {
+    // Check if user is logged in on mount
+    const checkAuth = async () => {
       try {
-        const { data: { session } } = await supabase.auth.getSession();
-        
-        if (session?.user) {
+        const token = apiClient.getToken();
+        if (token) {
           const userData = await apiClient.getCurrentUser();
           setUser(userData);
         }
       } catch (error) {
-        console.error('Error getting initial session:', error);
+        console.error('Auth check failed:', error);
+        apiClient.clearToken();
       } finally {
         setLoading(false);
       }
     };
 
-    getInitialSession();
-
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        if (event === 'SIGNED_IN' && session?.user) {
-          try {
-            const userData = await apiClient.getCurrentUser();
-            setUser(userData);
-          } catch (error) {
-            console.error('Error getting user data:', error);
-          }
-        } else if (event === 'SIGNED_OUT') {
-          setUser(null);
-        }
-        setLoading(false);
-      }
-    );
-
-    return () => subscription.unsubscribe();
+    checkAuth();
   }, []);
 
   const login = async (email: string, password: string) => {
@@ -82,6 +62,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setUser(null);
     } catch (error) {
       console.error('Error signing out:', error);
+      // Clear local state even if server request fails
+      apiClient.clearToken();
+      setUser(null);
     }
   };
 

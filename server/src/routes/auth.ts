@@ -1,8 +1,8 @@
 import express, { Request, Response } from 'express';
-import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { body, validationResult } from 'express-validator';
-import User from '../models/User';
+import { supabase } from '../config/supabase';
+import { authenticateToken, AuthRequest } from '../middleware/auth';
 
 const router = express.Router();
 
@@ -21,29 +21,38 @@ router.post('/register', [
 
     const { email, password, name } = req.body;
 
-    // Check if user exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      res.status(400).json({ error: 'User already exists' });
+    // Create user in Supabase Auth
+    const { data: authData, error: authError } = await supabase.auth.admin.createUser({
+      email,
+      password,
+      email_confirm: true
+    });
+
+    if (authError) {
+      res.status(400).json({ error: authError.message });
       return;
     }
 
-    // Hash password
-    const saltRounds = 12;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    // Create user profile in database
+    const { data: user, error: dbError } = await supabase
+      .from('users')
+      .insert([{
+        id: authData.user.id,
+        email,
+        name,
+        plan: 'free'
+      }])
+      .select()
+      .single();
 
-    // Create user
-    const user = new User({
-      email,
-      password: hashedPassword,
-      name
-    });
-
-    await user.save();
+    if (dbError) {
+      res.status(400).json({ error: dbError.message });
+      return;
+    }
 
     // Generate JWT
     const token = jwt.sign(
-      { userId: user._id },
+      { userId: user.id },
       process.env.JWT_SECRET || 'fallback-secret',
       { expiresIn: '7d' }
     );
@@ -51,12 +60,7 @@ router.post('/register', [
     res.status(201).json({
       message: 'User created successfully',
       token,
-      user: {
-        id: user._id,
-        email: user.email,
-        name: user.name,
-        plan: user.plan
-      }
+      user
     });
   } catch (error) {
     console.error('Registration error:', error);
@@ -78,23 +82,32 @@ router.post('/login', [
 
     const { email, password } = req.body;
 
-    // Find user
-    const user = await User.findOne({ email });
-    if (!user) {
+    // Sign in with Supabase Auth
+    const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    if (authError) {
       res.status(401).json({ error: 'Invalid credentials' });
       return;
     }
 
-    // Check password
-    const isValidPassword = await bcrypt.compare(password, user.password);
-    if (!isValidPassword) {
-      res.status(401).json({ error: 'Invalid credentials' });
+    // Get user profile
+    const { data: user, error: userError } = await supabase
+      .from('users')
+      .select('*')
+      .eq('id', authData.user.id)
+      .single();
+
+    if (userError) {
+      res.status(401).json({ error: 'User not found' });
       return;
     }
 
     // Generate JWT
     const token = jwt.sign(
-      { userId: user._id },
+      { userId: user.id },
       process.env.JWT_SECRET || 'fallback-secret',
       { expiresIn: '7d' }
     );
@@ -102,15 +115,43 @@ router.post('/login', [
     res.json({
       message: 'Login successful',
       token,
-      user: {
-        id: user._id,
-        email: user.email,
-        name: user.name,
-        plan: user.plan
-      }
+      user
     });
   } catch (error) {
     console.error('Login error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Get current user
+router.get('/me', authenticateToken, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const { data: user, error } = await supabase
+      .from('users')
+      .select('*')
+      .eq('id', req.user!.id)
+      .single();
+
+    if (error) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
+
+    res.json(user);
+  } catch (error) {
+    console.error('Get user error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Logout
+router.post('/logout', authenticateToken, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    // In a stateless JWT system, logout is handled client-side
+    // But we can add token blacklisting here if needed
+    res.json({ message: 'Logged out successfully' });
+  } catch (error) {
+    console.error('Logout error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });

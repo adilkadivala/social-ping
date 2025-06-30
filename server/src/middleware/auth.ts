@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import User, { IUser } from '../models/User';
+import { supabase } from '../config/supabase';
+import type { User } from '../config/supabase';
 
 export interface AuthRequest extends Request {
-  user?: IUser;
+  user?: User;
 }
 
 export const authenticateToken = async (
@@ -21,9 +22,14 @@ export const authenticateToken = async (
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback-secret') as { userId: string };
-    const user = await User.findById(decoded.userId);
+    
+    const { data: user, error } = await supabase
+      .from('users')
+      .select('*')
+      .eq('id', decoded.userId)
+      .single();
 
-    if (!user) {
+    if (error || !user) {
       res.status(401).json({ error: 'Invalid token' });
       return;
     }
