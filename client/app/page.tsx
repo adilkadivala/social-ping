@@ -1,4 +1,3 @@
-
 import {
   ArrowRight,
   Bell,
@@ -36,7 +35,6 @@ export default function HomePage() {
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <Bell className="w-5 h-5 text-primary-foreground" />
             </div>
-
             <span className="text-xl font-bold text-foreground">
               SocialPing
             </span>
@@ -58,7 +56,6 @@ export default function HomePage() {
               href="/sign-in"
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
-
               Login
             </Link>
             <ThemeToggle />
@@ -83,15 +80,11 @@ export default function HomePage() {
             Now monitoring 500K+ mentions daily
           </div>
           <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
-            Monitor Your Online
-            <span className="text-primary block">Presence Everywhere</span>
+            Get alerted when someone mentions your
+            <span className="text-primary block">name, product, or brand</span>
           </h1>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-
-            Get instant alerts when someone mentions your name, product, or
-            brand across social media platforms. Never miss an important
-            conversation again.
-
+            Monitor your online presence across Twitter, Reddit, and more. Never miss an important conversation about your brand again.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Button size="lg" asChild className="px-8 py-6 text-lg">
@@ -100,14 +93,12 @@ export default function HomePage() {
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
             </Button>
-
             <Button
               size="lg"
               variant="outline"
               asChild
               className="px-8 py-6 text-lg"
             >
-
               <Link href="#demo">
                 <Play className="mr-2 w-5 h-5" />
                 Watch Demo
@@ -119,11 +110,9 @@ export default function HomePage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-2xl mx-auto">
             <div className="text-center">
               <div className="text-2xl font-bold text-foreground">500K+</div>
-
               <div className="text-sm text-muted-foreground">
                 Mentions Tracked
               </div>
-
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-foreground">10K+</div>
@@ -149,10 +138,8 @@ export default function HomePage() {
               Everything You Need in One Platform
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-
               Comprehensive social media monitoring with real-time alerts and
               powerful analytics.
-
             </p>
           </div>
 
@@ -164,14 +151,12 @@ export default function HomePage() {
                 <div className="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center mb-4">
                   <Search className="w-6 h-6 text-primary" />
                 </div>
-
                 <CardTitle className="text-2xl">
                   Multi-Platform Monitoring
                 </CardTitle>
                 <CardDescription className="text-base">
                   Track mentions across Twitter, Reddit, LinkedIn, and YouTube
                   comments in real-time.
-
                 </CardDescription>
               </CardHeader>
               <div className="space-y-4">
@@ -201,7 +186,6 @@ export default function HomePage() {
                   <Bell className="w-5 h-5 text-green-600" />
                 </div>
                 <CardTitle className="text-lg">Real-Time Alerts</CardTitle>
-
               </CardHeader>
               <CardContent className="p-0">
                 <p className="text-sm text-muted-foreground mb-4">
@@ -241,22 +225,10 @@ export default function HomePage() {
                       className="bg-green-500 h-2 rounded-full"
                       style={{ width: "78%" }}
                     ></div>
-
-              </CardHeader>
-              <CardContent className="p-0">
-                <p className="text-sm text-muted-foreground mb-4">
-                  Get instant notifications via email when someone mentions your keywords.
-                </p>
-                <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                    <span className="text-xs text-green-700 dark:text-green-400">Live monitoring active</span>
-
                   </div>
                 </div>
               </CardContent>
             </Card>
-
 
             {/* Team Collaboration */}
             <Card className="lg:col-span-2 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-blue-200 dark:border-blue-800">
@@ -309,90 +281,12 @@ export default function HomePage() {
                 <p className="text-sm text-muted-foreground">
                   Set it and forget it. Our system works 24/7 to keep you
                   informed.
-
-            {/* Analytics */}
-            <Card className="p-6 hover:shadow-lg transition-all duration-300">
-              <CardHeader className="p-0 mb-4">
-                <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mb-3">
-                  <BarChart3 className="w-5 h-5 text-purple-600" />
-                </div>
-                <CardTitle className="text-lg">Smart Analytics</CardTitle>
-              </CardHeader>
-              <CardContent className="p-0">
-                <p className="text-sm text-muted-foreground mb-4">
-                  Visualize mention trends and track sentiment over time.
-                </p>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-xs">
-                    <span>Positive</span>
-                    <span>78%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                    <div className="bg-green-500 h-2 rounded-full" style={{width: '78%'}}></div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Team Collaboration */}
-            <Card className="lg:col-span-2 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-blue-200 dark:border-blue-800">
-              <CardHeader className="p-0 mb-4">
-                <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-3">
-                  <Users className="w-5 h-5 text-blue-600" />
-                </div>
-                <CardTitle className="text-lg">Team Collaboration</CardTitle>
-                <CardDescription>
-                  Share insights with your team and assign mentions for follow-up.
-                </CardDescription>
-              </CardHeader>
-              <div className="flex items-center space-x-4">
-                <div className="flex -space-x-2">
-                  <div className="w-8 h-8 bg-gradient-to-r from-pink-400 to-red-400 rounded-full border-2 border-white dark:border-gray-800"></div>
-                  <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-full border-2 border-white dark:border-gray-800"></div>
-                  <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full border-2 border-white dark:border-gray-800"></div>
-                </div>
-                <span className="text-sm text-muted-foreground">+12 team members</span>
-              </div>
-            </Card>
-
-            {/* Brand Protection */}
-            <Card className="p-6 hover:shadow-lg transition-all duration-300">
-              <CardHeader className="p-0 mb-4">
-                <div className="w-10 h-10 bg-orange-100 dark:bg-orange-900/30 rounded-lg flex items-center justify-center mb-3">
-                  <Shield className="w-5 h-5 text-orange-600" />
-                </div>
-                <CardTitle className="text-lg">Brand Protection</CardTitle>
-              </CardHeader>
-              <CardContent className="p-0">
-                <p className="text-sm text-muted-foreground">
-                  Monitor brand sentiment and respond before issues escalate.
-
                 </p>
               </CardContent>
             </Card>
           </div>
         </div>
       </section>
-
-
-            {/* Automation */}
-            <Card className="p-6 hover:shadow-lg transition-all duration-300">
-              <CardHeader className="p-0 mb-4">
-                <div className="w-10 h-10 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg flex items-center justify-center mb-3">
-                  <Zap className="w-5 h-5 text-yellow-600" />
-                </div>
-                <CardTitle className="text-lg">Automation</CardTitle>
-              </CardHeader>
-              <CardContent className="p-0">
-                <p className="text-sm text-muted-foreground">
-                  Set it and forget it. Our system works 24/7 to keep you informed.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
 
       {/* Social Proof */}
       <section className="py-20 px-4">
@@ -409,7 +303,6 @@ export default function HomePage() {
               <CardContent className="p-0">
                 <div className="flex items-center mb-4">
                   {[...Array(5)].map((_, i) => (
-
                     <Star
                       key={i}
                       className="w-4 h-4 fill-yellow-400 text-yellow-400"
@@ -420,26 +313,14 @@ export default function HomePage() {
                   "SocialPing helped us catch a viral mention of our product
                   before it exploded. We were able to engage with the community
                   and turn it into our biggest marketing win."
-
-                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-sm text-muted-foreground mb-4">
-                  "SocialPing helped us catch a viral mention of our product before it exploded. 
-                  We were able to engage with the community and turn it into our biggest marketing win."
-
                 </p>
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
                   <div>
                     <div className="font-medium text-sm">Sarah Chen</div>
-
                     <div className="text-xs text-muted-foreground">
                       CEO, TechStart
                     </div>
-
-                    <div className="text-xs text-muted-foreground">CEO, TechStart</div>
-
                   </div>
                 </div>
               </CardContent>
@@ -449,7 +330,6 @@ export default function HomePage() {
               <CardContent className="p-0">
                 <div className="flex items-center mb-4">
                   {[...Array(5)].map((_, i) => (
-
                     <Star
                       key={i}
                       className="w-4 h-4 fill-yellow-400 text-yellow-400"
@@ -460,20 +340,14 @@ export default function HomePage() {
                   "The real-time alerts are game-changing. We can now respond to
                   customer feedback within minutes instead of days. Our response
                   rate improved by 300%."
-
-                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-sm text-muted-foreground mb-4">
-                  "The real-time alerts are game-changing. We can now respond to customer 
-                  feedback within minutes instead of days. Our response rate improved by 300%."
-
                 </p>
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10 bg-gradient-to-r from-green-400 to-blue-400 rounded-full"></div>
                   <div>
                     <div className="font-medium text-sm">Marcus Johnson</div>
-
+                    <div className="text-xs text-muted-foreground">
+                      Marketing Director
+                    </div>
                   </div>
                 </div>
               </CardContent>
@@ -483,7 +357,6 @@ export default function HomePage() {
               <CardContent className="p-0">
                 <div className="flex items-center mb-4">
                   {[...Array(5)].map((_, i) => (
-
                     <Star
                       key={i}
                       className="w-4 h-4 fill-yellow-400 text-yellow-400"
@@ -494,22 +367,14 @@ export default function HomePage() {
                   "As a content creator, SocialPing helps me track mentions
                   across all platforms. I never miss when someone shares my
                   content or talks about my brand."
-
-                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-sm text-muted-foreground mb-4">
-                  "As a content creator, SocialPing helps me track mentions across all platforms. 
-                  I never miss when someone shares my content or talks about my brand."
-
                 </p>
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10 bg-gradient-to-r from-pink-400 to-red-400 rounded-full"></div>
                   <div>
                     <div className="font-medium text-sm">Alex Rivera</div>
-
-                    <div className="text-xs text-muted-foreground">Content Creator</div>
-
+                    <div className="text-xs text-muted-foreground">
+                      Content Creator
+                    </div>
                   </div>
                 </div>
               </CardContent>
@@ -536,10 +401,8 @@ export default function HomePage() {
               <CardHeader className="p-0 mb-6">
                 <CardTitle className="text-2xl">Free</CardTitle>
                 <div className="text-3xl font-bold">
-
                   $0
                   <span className="text-lg text-muted-foreground">/month</span>
-
                 </div>
                 <CardDescription>
                   Perfect for trying out SocialPing
@@ -576,10 +439,8 @@ export default function HomePage() {
               <CardHeader className="p-0 mb-6">
                 <CardTitle className="text-2xl">Pro</CardTitle>
                 <div className="text-3xl font-bold">
-
                   $9
                   <span className="text-lg text-muted-foreground">/month</span>
-
                 </div>
                 <CardDescription>
                   Ideal for creators and small businesses
@@ -615,10 +476,8 @@ export default function HomePage() {
               <CardHeader className="p-0 mb-6">
                 <CardTitle className="text-2xl">Enterprise</CardTitle>
                 <div className="text-3xl font-bold">
-
                   $19
                   <span className="text-lg text-muted-foreground">/month</span>
-
                 </div>
                 <CardDescription>For agencies and large brands</CardDescription>
               </CardHeader>
@@ -658,10 +517,8 @@ export default function HomePage() {
               Ready to Monitor Your Online Presence?
             </h2>
             <p className="text-xl text-muted-foreground mb-8">
-
               Join thousands of businesses already using SocialPing to stay
               ahead of the conversation.
-
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild className="px-8 py-6 text-lg">
@@ -670,14 +527,12 @@ export default function HomePage() {
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
               </Button>
-
               <Button
                 size="lg"
                 variant="outline"
                 asChild
                 className="px-8 py-6 text-lg"
               >
-
                 <Link href="#pricing">View Pricing</Link>
               </Button>
             </div>
@@ -697,7 +552,6 @@ export default function HomePage() {
                 <span className="text-xl font-bold">SocialPing</span>
               </div>
               <p className="text-muted-foreground text-sm">
-
                 Monitor your online presence with confidence. Never miss an
                 important mention again.
               </p>

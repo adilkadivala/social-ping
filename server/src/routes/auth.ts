@@ -1,4 +1,3 @@
-
 import express, { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { body, validationResult } from "express-validator";
@@ -175,4 +174,3 @@ router.post(
 );
 
 export default router;
-
