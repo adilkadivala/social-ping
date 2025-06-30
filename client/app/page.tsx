@@ -23,18 +23,18 @@ export default function HomePage() {
             <Link href="#pricing" className="text-muted-foreground hover:text-foreground transition-colors">
               Pricing
             </Link>
-            <Link href="/auth/login" className="text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="/sign-in" className="text-muted-foreground hover:text-foreground transition-colors">
               Login
             </Link>
             <ThemeToggle />
             <Button asChild>
-              <Link href="/auth/register">Get Started</Link>
+              <Link href="/sign-up">Get Started</Link>
             </Button>
           </nav>
           <div className="md:hidden flex items-center space-x-2">
             <ThemeToggle />
             <Button size="sm" asChild>
-              <Link href="/auth/register">Sign Up</Link>
+              <Link href="/sign-up">Sign Up</Link>
             </Button>
           </div>
         </div>
@@ -57,7 +57,7 @@ export default function HomePage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Button size="lg" asChild className="px-8 py-6 text-lg">
-              <Link href="/auth/register">
+              <Link href="/sign-up">
                 Start Free Trial
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
@@ -353,7 +353,7 @@ export default function HomePage() {
                   </li>
                 </ul>
                 <Button className="w-full" variant="outline" asChild>
-                  <Link href="/auth/register">Start Free</Link>
+                  <Link href="/sign-up">Start Free</Link>
                 </Button>
               </CardContent>
             </Card>
@@ -394,7 +394,7 @@ export default function HomePage() {
                   </li>
                 </ul>
                 <Button className="w-full" asChild>
-                  <Link href="/auth/register">Choose Pro</Link>
+                  <Link href="/sign-up">Choose Pro</Link>
                 </Button>
               </CardContent>
             </Card>
@@ -428,7 +428,7 @@ export default function HomePage() {
                   </li>
                 </ul>
                 <Button className="w-full" variant="outline" asChild>
-                  <Link href="/auth/register">Contact Sales</Link>
+                  <Link href="/sign-up">Contact Sales</Link>
                 </Button>
               </CardContent>
             </Card>
@@ -448,7 +448,7 @@ export default function HomePage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild className="px-8 py-6 text-lg">
-                <Link href="/auth/register">
+                <Link href="/sign-up">
                   Start Free Trial
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
@@ -482,8 +482,8 @@ export default function HomePage() {
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li><Link href="#features" className="hover:text-foreground transition-colors">Features</Link></li>
                 <li><Link href="#pricing" className="hover:text-foreground transition-colors">Pricing</Link></li>
-                <li><Link href="/auth/register" className="hover:text-foreground transition-colors">Sign Up</Link></li>
-                <li><Link href="/auth/login" className="hover:text-foreground transition-colors">Login</Link></li>
+                <li><Link href="/sign-up" className="hover:text-foreground transition-colors">Sign Up</Link></li>
+                <li><Link href="/sign-in" className="hover:text-foreground transition-colors">Login</Link></li>
               </ul>
             </div>
             
