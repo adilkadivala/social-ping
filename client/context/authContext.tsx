@@ -2,8 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { apiClient } from "@/lib/api";
-import { supabase } from "@/lib/supabase";
-import type { User } from "@/lib/supabase";
+import type { User } from "@/lib/types";
 
 interface AuthContextType {
   user: User | null;
@@ -20,71 +19,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Get initial session
-    const getInitialSession = async () => {
+    const initialize = async () => {
       try {
-        const {
-          data: { session },
-        } = await supabase.auth.getSession();
-
-        if (session?.user) {
-          const userData = await apiClient.getCurrentUser();
-          setUser(userData);
-        }
-      } catch (error) {
-        console.error("Error getting initial session:", error);
+        const userData = await apiClient.getCurrentUser();
+        if (userData) setUser(userData);
+      } catch (err) {
+        console.error("Failed to fetch user session:", err);
+        apiClient.clearToken(); // Clear token if session is invalid
       } finally {
         setLoading(false);
       }
     };
 
-    getInitialSession();
-
-    // Listen for auth changes
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (event === "SIGNED_IN" && session?.user) {
-        try {
-          const userData = await apiClient.getCurrentUser();
-          setUser(userData);
-        } catch (error) {
-          console.error("Error getting user data:", error);
-        }
-      } else if (event === "SIGNED_OUT") {
-        setUser(null);
-      }
-      setLoading(false);
-    });
-
-    return () => subscription.unsubscribe();
+    initialize();
   }, []);
 
   const login = async (email: string, password: string) => {
-    try {
-      const result = await apiClient.signIn(email, password);
-      setUser(result.user);
-    } catch (error) {
-      throw error;
-    }
+    const { user } = await apiClient.signIn(email, password);
+    setUser(user);
   };
 
   const register = async (email: string, password: string, name: string) => {
-    try {
-      const result = await apiClient.signUp(email, password, name);
-      setUser(result.user);
-    } catch (error) {
-      throw error;
-    }
+    const { user } = await apiClient.signUp(email, password, name);
+    setUser(user);
   };
 
   const logout = async () => {
-    try {
-      await apiClient.signOut();
-      setUser(null);
-    } catch (error) {
-      console.error("Error signing out:", error);
-    }
+    await apiClient.signOut();
+    setUser(null);
   };
 
   return (
@@ -96,7 +58,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
 export function useAuth() {
   const context = useContext(AuthContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;

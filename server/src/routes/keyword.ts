@@ -7,7 +7,7 @@ const router = express.Router();
 
 // Get user's keywords
 router.get(
-  "/",
+  "/fetch",
   authenticateToken,
   async (req: AuthRequest, res: Response): Promise<void> => {
     try {
@@ -32,7 +32,7 @@ router.get(
 
 // Add keyword
 router.post(
-  "/",
+  "/addkeywords",
   [authenticateToken, body("keyword").trim().isLength({ min: 1, max: 100 })],
   async (req: AuthRequest, res: Response): Promise<void> => {
     try {
@@ -104,7 +104,7 @@ router.post(
 
 // Delete keyword
 router.delete(
-  "/:id",
+  "/deletekeywords/:id",
   authenticateToken,
   async (req: AuthRequest, res: Response): Promise<void> => {
     try {
@@ -129,7 +129,7 @@ router.delete(
 
 // Toggle keyword active status
 router.patch(
-  "/:id/toggle",
+  "/updatekeywords/:id/toggle",
   authenticateToken,
   async (req: AuthRequest, res: Response): Promise<void> => {
     try {

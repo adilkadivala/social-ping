@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String    @id @default(uuid())
+  email      String    @unique
+  name       String
+  password   String
+  plan       Plan      @default(free)
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  keywords   Keyword[]
+  mentions   Mention[]
+
+  @@map("users")
+}
+
+model Keyword {
+  id         String    @id @default(uuid())
+  user_id    String
+  keyword    String
+  is_active  Boolean   @default(true)
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  user       User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  mentions   Mention[]
+
+  @@map("keywords")
+}
+
+model Mention {
+  id           String     @id @default(uuid())
+  user_id      String
+  keyword_id   String
+  platform     Platform
+  text         String
+  url          String
+  author       String
+  published_at DateTime
+  is_read      Boolean    @default(false)
+  sentiment    Sentiment?
+  created_at   DateTime   @default(now())
+  keyword      Keyword    @relation(fields: [keyword_id], references: [id], onDelete: Cascade)
+  user         User       @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("mentions")
+}
+
+enum Plan {
+  free
+  pro
+  enterprise
+}
+
+enum Platform {
+  twitter
+  reddit
+  linkedin
+  youtube
+}
+
+enum Sentiment {
+  positive
+  negative
+  neutral
+}

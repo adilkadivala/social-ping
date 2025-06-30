@@ -1,5 +1,5 @@
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api";
 
 class ApiClient {
   private baseURL: string;
@@ -7,10 +7,10 @@ class ApiClient {
 
   constructor() {
     this.baseURL = API_BASE_URL;
-    
+
     // Get token from localStorage on client side
-    if (typeof window !== 'undefined') {
-      this.token = localStorage.getItem('token');
+    if (typeof window !== "undefined") {
+      this.token = localStorage.getItem("token");
     }
   }
 
@@ -19,10 +19,10 @@ class ApiClient {
     options: RequestInit = {}
   ): Promise<T> {
     const url = `${this.baseURL}${endpoint}`;
-    
+
     const config: RequestInit = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         ...(this.token && { Authorization: `Bearer ${this.token}` }),
         ...options.headers,
       },
@@ -30,9 +30,11 @@ class ApiClient {
     };
 
     const response = await fetch(url, config);
-    
+
     if (!response.ok) {
-      const error = await response.json().catch(() => ({ error: 'Network error' }));
+      const error = await response
+        .json()
+        .catch(() => ({ error: "Network error" }));
       throw new Error(error.error || `HTTP ${response.status}`);
     }
 
@@ -41,55 +43,61 @@ class ApiClient {
 
   // Auth methods
   async signUp(email: string, password: string, name: string) {
-    const result = await this.request<{ token: string; user: any }>('/auth/register', {
-      method: 'POST',
-      body: JSON.stringify({ email, password, name }),
-    });
-    
+    const result = await this.request<{ token: string; user: any }>(
+      "/auth/register",
+      {
+        method: "POST",
+        body: JSON.stringify({ email, password, name }),
+      }
+    );
+
     this.setToken(result.token);
     return result;
   }
 
   async signIn(email: string, password: string) {
-    const result = await this.request<{ token: string; user: any }>('/auth/login', {
-      method: 'POST',
-      body: JSON.stringify({ email, password }),
-    });
-    
+    const result = await this.request<{ token: string; user: any }>(
+      "/auth/login",
+      {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+      }
+    );
+
     this.setToken(result.token);
     return result;
   }
 
   async signOut() {
-    await this.request('/auth/logout', { method: 'POST' });
+    await this.request("/auth/logout", { method: "POST" });
     this.clearToken();
   }
 
   async getCurrentUser() {
-    return this.request<any>('/auth/me');
+    return this.request<any>("/auth/me");
   }
 
   // Keywords methods
   async getKeywords() {
-    return this.request<any[]>('/keywords');
+    return this.request<any[]>("/keywords/fetch");
   }
 
   async addKeyword(keyword: string) {
-    return this.request<any>('/keywords', {
-      method: 'POST',
+    return this.request<any>("/addkeywords", {
+      method: "POST",
       body: JSON.stringify({ keyword }),
     });
   }
 
   async deleteKeyword(id: string) {
-    return this.request<any>(`/keywords/${id}`, {
-      method: 'DELETE',
+    return this.request<any>(`/keywords/deletekeywords/${id}`, {
+      method: "DELETE",
     });
   }
 
   async toggleKeyword(id: string) {
-    return this.request<any>(`/keywords/${id}/toggle`, {
-      method: 'PATCH',
+    return this.request<any>(`/updatekeywords/${id}/toggle`, {
+      method: "PATCH",
     });
   }
 
@@ -98,12 +106,12 @@ class ApiClient {
     return this.request<{
       mentions: any[];
       pagination: { page: number; limit: number; total: number; pages: number };
-    }>(`/mentions?page=${page}&limit=${limit}`);
+    }>(`/mentions/fetch?page=${page}&limit=${limit}`);
   }
 
   async markMentionAsRead(id: string) {
     return this.request<any>(`/mentions/${id}/read`, {
-      method: 'PATCH',
+      method: "PATCH",
     });
   }
 
@@ -113,21 +121,21 @@ class ApiClient {
       unread: number;
       twitter: number;
       reddit: number;
-    }>('/mentions/stats');
+    }>("/mentions/stats");
   }
 
   // Token management
   setToken(token: string) {
     this.token = token;
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('token', token);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("token", token);
     }
   }
 
   clearToken() {
     this.token = null;
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('token');
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("token");
     }
   }
 
@@ -135,6 +143,5 @@ class ApiClient {
     return this.token;
   }
 }
-
 
 export const apiClient = new ApiClient();

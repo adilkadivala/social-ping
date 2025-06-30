@@ -6,7 +6,7 @@ const router = express.Router();
 
 // Get user's mentions
 router.get(
-  "/",
+  "/fetch",
   authenticateToken,
   async (req: AuthRequest, res: Response): Promise<void> => {
     try {

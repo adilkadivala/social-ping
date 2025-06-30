@@ -1,10 +1,9 @@
-
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import dotenv from "dotenv";
-import { startMonitoringJob } from "./job/monitoringJob";
+import { startMonitoringJob } from "./jobs/monitoringJob";
 
 // Routes
 import authRoutes from "./routes/auth";
@@ -31,8 +30,8 @@ app.use(
 
 // Rate limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
+  windowMs: 15 * 60 * 1000,
+  max: 100,
   message: "Too many requests from this IP, please try again later.",
 });
 app.use(limiter);
