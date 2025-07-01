@@ -18,7 +18,6 @@ export const metadata: Metadata = {
 
   description:
     "Get alerted when someone mentions your name, product, or brand across social media platforms.",
-
 };
 
 export default function RootLayout({
@@ -31,9 +30,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-
         <AuthProvider>{children}</AuthProvider>
-
       </body>
     </html>
   );

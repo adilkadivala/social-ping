@@ -9,11 +9,9 @@ import {
   MessageSquare,
   Star,
   Users,
-  TrendingUp,
   Globe,
   CheckCircle,
   Play,
-  ExternalLink,
   ExternalLink,
 } from "lucide-react";
 import Link from "next/link";
@@ -25,7 +23,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
+// import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export default function HomePage() {
   return (
@@ -60,13 +58,13 @@ export default function HomePage() {
             >
               Login
             </Link>
-            <ThemeToggle />
+            {/* <ThemeToggle /> */}
             <Button asChild>
               <Link href="/sign-up">Get Started</Link>
             </Button>
           </nav>
           <div className="md:hidden flex items-center space-x-2">
-            <ThemeToggle />
+            {/* <ThemeToggle /> */}
             <Button size="sm" asChild>
               <Link href="/sign-up">Sign Up</Link>
             </Button>
@@ -82,8 +80,6 @@ export default function HomePage() {
             Now monitoring 500K+ mentions daily
           </div>
           <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
-            Get alerted when someone mentions your
-            <span className="text-primary block">name, product, or brand</span>
             Get alerted when someone mentions your
             <span className="text-primary block">name, product, or brand</span>
           </h1>

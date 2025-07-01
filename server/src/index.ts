@@ -3,7 +3,7 @@ import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import dotenv from "dotenv";
-import { startMonitoringJob } from "./jobs/monitoringJob";
+// import { startMonitoringJob } from "./jobs/monitoringJob";
 
 // Routes
 import authRoutes from "./routes/auth";
@@ -78,7 +78,7 @@ app.listen(PORT, () => {
   console.log(`📊 Health check: http://localhost:${PORT}/api/health`);
 
   // Start monitoring job
-  startMonitoringJob();
+  // startMonitoringJob();
 });
 
 export default app;

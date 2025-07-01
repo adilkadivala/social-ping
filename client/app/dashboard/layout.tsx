@@ -16,7 +16,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
+// import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Bell } from "lucide-react";
 
@@ -45,9 +45,6 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
-  const breadcrumbs = getBreadcrumbs(pathname);
-
   const pathname = usePathname();
   const breadcrumbs = getBreadcrumbs(pathname);
 
@@ -90,7 +87,7 @@ export default function DashboardLayout({
                 3
               </span>
             </Button>
-            <ThemeToggle />
+            {/* <ThemeToggle /> */}
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>

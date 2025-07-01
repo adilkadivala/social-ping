@@ -1,18 +1,21 @@
+import { dirname } from "path";
+import { fileURLToPath } from "url";
 import { FlatCompat } from "@eslint/eslintrc";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const compat = new FlatCompat({
-  baseDirectory: import.meta.dirname,
+  baseDirectory: __dirname,
 });
 
 const eslintConfig = [
-  ...compat.config({
-    extends: ["next", "eslint:recommended"],
-    rules: {
+  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  rules: {
       "no-multiple-empty-lines": ["error", { max: 1 }],
       "no-trailing-spaces": "error",
       quotes: ["error", "single", { avoidEscape: true }],
     },
-  }),
 ];
 
 export default eslintConfig;

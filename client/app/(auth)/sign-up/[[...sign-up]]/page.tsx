@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -130,7 +129,7 @@ export default function RegisterPage() {
               <p className="text-sm text-gray-600">
                 Already have an account?{" "}
                 <Link
-                  href="/auth/login"
+                  href="/auth/sign-in"
                   className="text-blue-600 hover:text-blue-500 font-medium"
                 >
                   Sign in
@@ -143,4 +142,3 @@ export default function RegisterPage() {
     </div>
   );
 }
-

@@ -31,7 +31,7 @@ export default function LoginPage() {
     try {
       await login(email, password);
       router.push("/dashboard");
-    } catch (err: any) {
+    } catch (err: Error) {
       setError(err.message || "Login failed");
     } finally {
       setLoading(false);
